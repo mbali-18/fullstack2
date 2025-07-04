@@ -1,6 +1,6 @@
+import fs from "fs";
+import path from "path";
 import { Fragment, useState } from "react";
-
-import { buildFeedbackPath, extractFeedback } from "../api/feedback/index";
 
 function FeedbackPage(props) {
   const [feedbackData, setFeedbackData] = useState();
@@ -28,6 +28,16 @@ function FeedbackPage(props) {
       </ul>
     </Fragment>
   );
+}
+
+export function buildFeedbackPath() {
+  return path.join(process.cwd(), "data", "feedback.json");
+}
+
+export function extractFeedback(filePath) {
+  const fileData = fs.readFileSync(filePath);
+  const data = JSON.parse(fileData);
+  return data;
 }
 
 export async function getStaticProps() {
